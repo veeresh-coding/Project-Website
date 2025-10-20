@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smart Helmet</title>
+  <style>
+    /* ---------- GLOBAL ---------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: #f5f5f5;
+      color: #222;
+    }
+
+    /* ---------- HEADER ---------- */
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: #000;
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 40px;
+      z-index: 1000;
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    header.scrolled {
+      background: #111;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
+    }
+
+    header h1 {
+      font-size: 1.6em;
+      color: #00bfff;
+      letter-spacing: 1px;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 25px;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: #fff;
+      font-weight: 500;
+      transition: color 0.3s, transform 0.2s;
+    }
+
+    nav ul li a:hover {
+      color: #00bfff;
+      transform: scale(1.05);
+    }
+
+    /* ---------- HAMBURGER MENU ---------- */
+    .menu-btn {
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 25px;
+      height: 18px;
+      cursor: pointer;
+    }
+
+    .menu-btn div {
+      background-color: #fff;
+      height: 3px;
+      border-radius: 2px;
+      transition: all 0.4s ease;
+    }
+
+    .menu-btn.active div:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+    .menu-btn.active div:nth-child(2) {
+      opacity: 0;
+    }
+    .menu-btn.active div:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
+
+    /* ---------- MOBILE NAV ---------- */
+    @media (max-width: 768px) {
+      .menu-btn {
+        display: flex;
+      }
+
+      nav ul {
+        position: absolute;
+        top: 65px;
+        right: 0;
+        background: #111;
+        flex-direction: column;
+        width: 200px;
+        gap: 15px;
+        padding: 20px;
+        border-radius: 0 0 0 12px;
+        transform: translateX(100%);
+        transition: transform 0.4s ease;
+      }
+
+      nav ul.active {
+        transform: translateX(0);
+      }
+
+      nav ul li {
+        text-align: right;
+      }
+    }
+
+    /* ---------- SECTIONS ---------- */
+    section {
+      padding: 100px 20px 80px;
+      max-width: 900px;
+      margin: auto;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.7s ease;
+    }
+
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    section h2 {
+      font-size: 2em;
+      color: #000;
+      margin-bottom: 15px;
+      border-bottom: 2px solid #00bfff;
+      display: inline-block;
+      padding-bottom: 5px;
+    }
+
+    section p {
+      font-size: 1.1em;
+      line-height: 1.7;
+      color: #333;
+      max-width: 800px;
+      margin: 10px auto;
+    }
+
+    /* ---------- STUDENTS SECTION ---------- */
+    .students {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 25px;
+      margin-top: 40px;
+    }
+
+    .student-card {
+      background: #fff;
+      border-radius: 15px;
+      padding: 25px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .student-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .student-card h3 {
+      color: #00bfff;
+      margin-bottom: 8px;
+      font-size: 1.2em;
+    }
+
+    .student-card p {
+      color: #555;
+      font-size: 0.95em;
+    }
+
+    /* ---------- FOOTER ---------- */
+    footer {
+      text-align: center;
+      padding: 25px;
+      background: #000;
+      color: #ccc;
+      font-size: 0.9em;
+      letter-spacing: 0.5px;
+    }
+  </style>
+</head>
+<body>
+  <!-- ---------- HEADER ---------- -->
+  <header id="header">
+    <h1>Smart Helmet</h1>
+    <nav>
+      <div class="menu-btn" id="menu-btn">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <ul id="menu">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#problem">Real World Problem</a></li>
+        <li><a href="#idea">Proposed Idea</a></li>
+        <li><a href="#how">How It Works</a></li>
+        <li><a href="#students">Students</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- ---------- HOME ---------- -->
+  <section id="home">
+    <h2>Welcome to Smart Helmet</h2>
+    <p>
+      A smart, affordable safety solution that detects crashes and alerts emergency contacts automatically — saving lives on the road.
+    </p>
+  </section>
+
+  <!-- ---------- REAL WORLD PROBLEM ---------- -->
+  <section id="problem">
+    <h2>Real World Problem Explanation</h2>
+    <p>
+      Many riders die due to delayed help or not wearing helmets. Current systems don’t detect accidents or alert emergency services automatically, causing critical time loss that could have saved lives.
+    </p>
+  </section>
+
+  <!-- ---------- PROPOSED IDEA ---------- -->
+  <section id="idea">
+    <h2>Proposed Idea</h2>
+    <p>
+      The Smart Helmet is a low-cost solution that detects crashes using motion and impact sensors, then sends an SOS with the rider’s GPS location through Bluetooth or GSM. A 30-second cancel option prevents false alarms. Built with affordable parts (₹1,500–₹4,000), it ensures faster help and improved survival rates.
+    </p>
+  </section>
+
+  <!-- ---------- HOW IT WORKS ---------- -->
+  <section id="how">
+    <h2>How It Works</h2>
+    <p>
+      When sensors detect a crash, the helmet vibrates and beeps for 30 seconds. If not canceled, it sends an SOS message and Google Maps link to emergency contacts. It may also flash an emergency light or call automatically for quick response.
+    </p>
+  </section>
+
+  <!-- ---------- STUDENTS ---------- -->
+  <section id="students">
+    <h2>About the Students</h2>
+    <div class="students">
+      <div class="student-card">
+        <h3>Veeresh</h3>
+        <p>Web Devloper</p>
+      </div>
+      <div class="student-card">
+        <h3>Advay Pandey</h3>
+        <p>Robotics</p>
+      </div>
+      <div class="student-card">
+        <h3>Aniket Kalia</h3>
+        <p>App Devloper</p>
+      </div>
+      <div class="student-card">
+        <h3>Aviral Saxena</h3>
+        <p>Designer</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- FOOTER ---------- -->
+  <footer>
+    © 2025 Smart Helmet Project | Made by Class 9 Students
+  </footer>
+
+  <!-- ---------- JAVASCRIPT ---------- -->
+  <script>
+    // Header scroll effect
+    window.addEventListener("scroll", () => {
+      const header = document.getElementById("header");
+      header.classList.toggle("scrolled", window.scrollY > 50);
+    });
+
+    // Reveal animations
+    const sections = document.querySelectorAll("section");
+    const revealSections = () => {
+      sections.forEach(sec => {
+        const rect = sec.getBoundingClientRect();
+        if (rect.top < window.innerHeight - 100) sec.classList.add("visible");
+      });
+    };
+    window.addEventListener("scroll", revealSections);
+    window.addEventListener("load", revealSections);
+
+    // Hamburger menu functionality
+    const menuBtn = document.getElementById("menu-btn");
+    const menu = document.getElementById("menu");
+    menuBtn.addEventListener("click", () => {
+      menuBtn.classList.toggle("active");
+      menu.classList.toggle("active");
+    });
+
+    // Close menu when clicking a link (on mobile)
+    document.querySelectorAll("nav ul li a").forEach(link => {
+      link.addEventListener("click", () => {
+        menu.classList.remove("active");
+        menuBtn.classList.remove("active");
+      });
+    });
+  </script>
+</body>
+</html>
